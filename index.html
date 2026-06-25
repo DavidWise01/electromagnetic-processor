@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electromagnetic Core — a 128-bit magnonic processor concept</title>
+<meta name="description" content="PSĒPHOS — the Electromagnetic Core: a concept for a 128-bit processor that computes with SPIN WAVES (magnons) and magnetic flux instead of moving charge. Logic is done by wave INTERFERENCE — a magnonic majority gate, the universal primitive of magnetic computing — read out by magnetic tunnel junctions. Live: a running magnonic majority gate (animated interfering spin waves), a technical blueprint of the stack, and a spec sheet. Two-layer honest: the physics (magnonics, spintronics, MRAM, nanomagnetic logic) is real and active research; the specific 128-bit ROOT0 design is a speculative concept render, not a fabricated chip. David Lee Wise, ROOT0.">
+<style>
+  :root{--void:#03060a;--panel:#0a1018;--panel2:#0e1722;--edge:#16283a;--ink:#dff0ff;--mute:#86b6d6;--faint:#5a86a0;
+    --cyan:#22d3ee;--cyan2:#9bf3ff;--violet:#8b6cff;--mag:#ff4d9d;--mint:#3df0b0;--amber:#ffb454;--red:#ff5d6c;
+    --mono:'SFMono-Regular',ui-monospace,'Cascadia Code',Menlo,Consolas,monospace;--serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--void);color:var(--ink);font-family:var(--serif);line-height:1.6;
+    background-image:radial-gradient(1100px 600px at 78% -12%,#0a1c2e 0%,transparent 55%),radial-gradient(900px 520px at 0% 112%,#1a0e2a 0%,transparent 55%);}
+  .wrap{max-width:1020px;margin:0 auto;padding:42px 24px 96px}
+  header{border-bottom:1px solid var(--edge);padding-bottom:22px;margin-bottom:24px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);opacity:.95}
+  h1{font-family:Georgia,serif;font-size:38px;line-height:1.06;margin:.3em 0 .12em;font-weight:600}h1 em{color:var(--cyan2);font-style:italic}
+  .who{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.03em}
+  .sub{color:var(--mute);font-size:16px;max-width:76ch;margin-top:14px}.sub b{color:var(--ink)}
+  .verdicts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:22px 0}@media(max-width:720px){.verdicts{grid-template-columns:1fr}}
+  .vc{border:1px solid var(--edge);border-radius:11px;padding:13px 15px;border-top-width:3px;background:rgba(10,16,24,.7)}
+  .vc .badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em}
+  .vc.s{border-top-color:var(--mint)}.vc.s .badge{color:var(--mint)} .vc.m{border-top-color:var(--amber)}.vc.m .badge{color:var(--amber)} .vc.f{border-top-color:var(--red)}.vc.f .badge{color:var(--red)}
+  .vc p{font-size:12px;color:var(--mute);margin:6px 0 0;line-height:1.45}.vc p b{color:var(--ink)}
+  section{margin:38px 0}
+  h2{font-family:Georgia,serif;font-size:23px;margin:2px 0 4px;font-weight:600}
+  .sk{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--violet)}
+  .lede{color:var(--mute);font-size:15px;margin:8px 0 16px;max-width:82ch}
+  .panel{background:linear-gradient(180deg,var(--panel),#05090f);border:1px solid var(--edge);border-radius:14px;padding:18px;box-shadow:0 30px 70px -50px #000}
+  canvas{display:block;width:100%;height:auto;border-radius:10px;background:#040a10}
+  svg{display:block;max-width:100%}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+  button{font-family:var(--mono);font-size:12px;color:var(--ink);background:#0e1a26;border:1px solid var(--edge);border-radius:8px;padding:8px 12px;cursor:pointer}button:hover{border-color:var(--cyan)}
+  .inp{font-family:var(--mono);font-size:13px;padding:8px 14px;border-radius:8px;border:1px solid var(--edge);background:#0e1a26;color:var(--red);cursor:pointer;min-width:78px}
+  .inp.hi{color:var(--mint);border-color:#1e5a44;background:#06160f}
+  .mode{display:inline-flex;border:1px solid var(--edge);border-radius:8px;overflow:hidden}
+  .mode button{border:0;border-right:1px solid var(--edge);border-radius:0}.mode button:last-child{border-right:0}.mode button.on{background:#10243a;color:var(--cyan2)}
+  .readout{display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-family:var(--mono);font-size:13px;color:var(--mute);margin-top:12px;justify-content:center}
+  .readout .bit{font-size:30px;font-weight:700}.readout .bit.one{color:var(--mint)}.readout .bit.zero{color:var(--red)}
+  .tt{border-collapse:collapse;font-family:var(--mono);font-size:12px;margin:12px auto 0}
+  .tt th,.tt td{border:1px solid var(--edge);padding:4px 9px;text-align:center;color:var(--mute)}.tt th{color:var(--cyan)}.tt td.lit{background:#10243a;color:var(--cyan2)}.tt td.one{color:var(--mint)}.tt td.zero{color:var(--red)}
+  .note{color:var(--mute);font-size:13.5px;border-left:2px solid var(--edge);padding-left:13px;margin:16px 0 0}.note b{color:var(--ink)}
+  .spec{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px;margin-top:6px}
+  .spec td{border-bottom:1px solid var(--edge);padding:9px 10px;vertical-align:top}.spec td:first-child{color:var(--faint);white-space:nowrap;width:200px}.spec td:last-child{color:var(--ink)}.spec td b{color:var(--cyan2)}
+  .bp-cap{font-family:var(--mono);font-size:11px;color:var(--faint);text-align:center;margin-top:8px}
+  footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:18px;color:var(--faint);font-family:var(--mono);font-size:11px;line-height:1.8}
+  footer a,.bar2 a{color:var(--cyan)}.bar2{font-family:var(--mono);font-size:11.5px;margin-bottom:16px}.bar2 a{text-decoration:none;border-bottom:1px dotted #18415a}
+  code{font-family:var(--mono);color:var(--cyan2);background:#08131d;padding:1px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar2"><a href="https://davidwise01.github.io/ud0/">◄ UD0</a> &nbsp; PSĒPHOS · the processor workshop · concept</div>
+<header>
+  <div class="kicker">// PSĒPHOS · electromagnetic processor · 128-bit concept</div>
+  <h1>The Electromagnetic <em>Core</em></h1>
+  <div class="who">a magnonic / spin-wave processor concept · computes with magnetic waves, not moving charge · ROOT0 / David Lee Wise</div>
+  <div class="sub">Every processor in PSĒPHOS so far moves something through the chip — photons, ions, charge. The Electromagnetic Core moves <b>nothing</b>. Its signal is a <b>spin wave</b> — a ripple of electron-spin precession (a <em>magnon</em>) travelling through a magnetic film — and its logic is done by <b>interference</b>: where two spin waves meet in phase they add (a <code>1</code>), where they meet out of phase they cancel (a <code>0</code>). No current flows, so there is no resistive heat to carry away. The universal gate is a <b>magnonic majority gate</b>, read out by <b>magnetic tunnel junctions</b>. Below it is <em>running</em> — a live mock prototype — followed by the technical blueprint and the spec sheet.</div>
+</header>
+<div class="verdicts">
+  <div class="vc s"><span class="badge">✓ THE PHYSICS IS REAL</span><p><b>Magnetic computing exists.</b> Magnonics (spin-wave logic), spintronics, MRAM / magnetic tunnel junctions, and nanomagnetic logic are active, published research. Spin-wave majority gates have been demonstrated in the lab. The carrier and the gate are real.</p></div>
+  <div class="vc m"><span class="badge">◐ THE DESIGN IS A CONCEPT</span><p><b>ROOT0's own architecture.</b> The specific 128-bit flux-lattice layout, the layer stack, and the "core" framing are a <em>speculative design</em> — a coherent concept built on real primitives, not a validated chip layout or a benchmarked simulation.</p></div>
+  <div class="vc f"><span class="badge">◔ NOT A FABRICATED CHIP</span><p><b>A blueprint, not silicon.</b> Nothing here was etched or measured. The live core is a faithful <em>model</em> of magnonic interference logic; the blueprint is a technical render. Read it as a disclosure of a design, not a product.</p></div>
+</div>
+
+<section>
+  <div class="sk">// live · the core, running</div>
+  <h2>The magnonic majority gate, in motion</h2>
+  <p class="lede">Three spin-wave sources — inputs <b>A, B, C</b> — feed one combiner. Each input is a wave whose <b>phase</b> encodes its bit: in-phase = <code>1</code>, anti-phase (π) = <code>0</code>. They superpose; the output wave takes the phase of the <b>majority</b>, and a magnetic tunnel junction reads its sign as the output bit. Toggle the inputs and watch the interference do the arithmetic. Pin one input to wire the same gate into a plain <b>AND</b> or <b>OR</b> — which is why majority is universal.</p>
+  <div class="panel">
+    <div class="controls">
+      <span style="font-family:var(--mono);font-size:12px;color:var(--faint)">inputs:</span>
+      <button class="inp hi" id="iA">A · 1</button><button class="inp hi" id="iB">B · 1</button><button class="inp" id="iC">C · 0</button>
+      <span style="flex:1"></span>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--faint);margin-right:6px">gate:</span>
+      <span class="mode" id="mode"><button data-m="maj" class="on">MAJ</button><button data-m="and">AND</button><button data-m="or">OR</button></span>
+      <button id="pause">pause ⏸</button>
+    </div>
+    <canvas id="cv" width="960" height="300"></canvas>
+    <div class="readout">
+      <span>combined amplitude <b id="amp">—</b></span>
+      <span>readout (MTJ) → <span class="bit" id="bit">·</span></span>
+      <span id="gexpr" style="color:var(--cyan2)"></span>
+    </div>
+    <table class="tt" id="tt"></table>
+    <div class="note">No charge is transported across the gate — only a <em>phase</em> of precession propagates, so the energy cost is set by spin damping, not by <code>I²R</code> resistive loss. ⚑ That is the whole promise of magnonic logic: <b>compute by interference, not by current</b>. A majority gate is functionally complete — pin an input low and you have AND, pin it high and you have OR — so this one cell, tiled, is a universal fabric. It is the same Boolean algebra of <a href="https://davidwise01.github.io/george-boole/">Boole</a> and the same gate-universality of <a href="https://davidwise01.github.io/augustus-de-morgan/">De Morgan</a>, carried on magnetic waves instead of voltages.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sk">// blueprint · the stack &amp; the bus</div>
+  <h2>The technical blueprint</h2>
+  <p class="lede">Two views of the Electromagnetic Core: a <b>cross-section</b> of the layer stack (how a bit is launched, carried, and read), and a <b>block diagram</b> of the 128-bit datapath (how the magnonic majority cells tile into a processor). Dimensions are concept targets, not measured values.</p>
+  <div class="panel">
+    <svg id="bpStack" viewBox="0 0 960 280" width="960" height="280" role="img" aria-label="Electromagnetic Core layer-stack cross-section"></svg>
+    <div class="bp-cap">FIG. 1 — layer-stack cross-section · launch (microstrip antenna) → propagate (YIG magnonic waveguide) → compute (interference combiner) → read (MTJ sense head) · flux returned through a soft-magnetic yoke</div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <svg id="bpBlock" viewBox="0 0 960 300" width="960" height="300" role="img" aria-label="Electromagnetic Core datapath block diagram"></svg>
+    <div class="bp-cap">FIG. 2 — datapath block diagram · 128 input transducers → spin-wave bus → majority-gate ALU fabric (carry-save) → MTJ sense array → 128-bit register · clocked by an RF bias field</div>
+  </div>
+</section>
+
+<section>
+  <div class="sk">// architecture · how it computes</div>
+  <h2>How it folds together</h2>
+  <p class="lede">Four layers, one idea — keep the information in the <em>magnetic order</em> and never move a charge across the chip.</p>
+  <div class="panel">
+    <table class="spec">
+      <tr><td><b>1 · Launch</b></td><td>A pulsed <b>microstrip antenna</b> (a tiny coil/transducer) excites a coherent spin wave in the magnetic film. The bit is written into the wave's <b>phase</b> — 0 or π — by the timing of the pulse. No charge enters the channel.</td></tr>
+      <tr><td><b>2 · Propagate</b></td><td>The wave travels through a <b>YIG (yttrium-iron-garnet) waveguide</b> — the lowest-damping magnetic material known, so a magnon can travel macroscopic distances. Multiple waveguides carry the operands of one operation toward a junction.</td></tr>
+      <tr><td><b>3 · Compute</b></td><td>At the junction the waves <b>interfere</b>. The combined wave's phase is the <b>majority</b> of the inputs' phases — a complete logic gate with no transistors, no current, no switching charge. Bias fields steer and clock the fabric.</td></tr>
+      <tr><td><b>4 · Read</b></td><td>A <b>magnetic tunnel junction</b> (the MRAM read element) senses the resultant wave's phase/amplitude as a resistance, converting it back to a voltage bit — the only place charge appears, at the very edge.</td></tr>
+    </table>
+    <div class="note">Because the state lives in spin and flux, it is also <b>non-volatile</b> — the magnetic order persists with the power off, so the Core wakes up holding its last state (the MRAM property). ⚑ Sits in PSĒPHOS beside the <a href="https://davidwise01.github.io/photonic/">Photonic</a>, <a href="https://davidwise01.github.io/plasmonic/">Plasmonic</a>, and <a href="https://davidwise01.github.io/memristor/">Memristive</a> cores — each a different physical answer to the same question: <em>what else can carry a bit?</em> Here the answer is a magnetic wave.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sk">// spec sheet · concept targets</div>
+  <h2>Specification</h2>
+  <div class="panel">
+    <table class="spec">
+      <tr><td>class</td><td><b>Electromagnetic (magnonic) processor</b> — concept</td></tr>
+      <tr><td>signal carrier</td><td>spin waves (magnons) · phase-encoded bits</td></tr>
+      <tr><td>substrate</td><td>YIG / permalloy magnonic waveguide on a soft-magnetic yoke</td></tr>
+      <tr><td>logic primitive</td><td>magnonic <b>majority gate</b> (functionally complete) via wave interference</td></tr>
+      <tr><td>word width</td><td><b>128-bit</b> (entry tier of the PSĒPHOS 128 → 512 → 4096 build-out)</td></tr>
+      <tr><td>clock</td><td>RF–microwave bias field · GHz today, THz the ceiling of spin dynamics</td></tr>
+      <tr><td>read-out</td><td>magnetic tunnel junction (MTJ) sense array — the MRAM element</td></tr>
+      <tr><td>energy model</td><td>set by spin <b>damping</b>, not <code>I²R</code> — no charge transport across gates</td></tr>
+      <tr><td>state</td><td><b>non-volatile</b> — magnetic order holds with power off</td></tr>
+      <tr><td>builds on (real)</td><td>magnonics · spintronics · MRAM/MTJ · nanomagnetic logic · spin-wave majority gates</td></tr>
+      <tr><td>status</td><td>⚠ <b>concept / disclosure</b> — not fabricated, not benchmarked</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  THE ELECTROMAGNETIC CORE · PSĒPHOS · a 128-bit magnonic processor concept · two-layer honest<br>
+  live magnonic majority gate (3 phase-encoded spin-wave inputs interfere → majority; MTJ readout; AND/OR by pinning an input — verified) · technical blueprint (layer-stack + datapath) · spec sheet<br>
+  computes with magnetic spin waves, not moving charge · built on REAL magnonics / spintronics / MRAM / nanomagnetic logic · the specific 128-bit ROOT0 design is a speculative concept, not a fabricated chip<br>
+  ◄ <a href="https://davidwise01.github.io/ud0/">UD0</a> · siblings: <a href="https://davidwise01.github.io/photonic/">Photonic</a> · <a href="https://davidwise01.github.io/plasmonic/">Plasmonic</a> · <a href="https://davidwise01.github.io/memristor/">Memristor</a><br>
+  PSĒPHOS · the processor workshop · governor David Lee Wise (ROOT0) · CC-BY-ND-4.0
+</footer>
+</div>
+<script>
+"use strict";
+// ============ MODULE I : live magnonic majority gate ============
+(function(){
+  const $=id=>document.getElementById(id);
+  const cv=$('cv'), g=cv.getContext('2d');
+  let A=1,B=1,C=0, mode='maj', t=0, paused=false;
+  // logic value → phase (1 = 0 rad, 0 = π)
+  const ph=v=>v?0:Math.PI;
+  function majority(a,b,c){ return (Math.cos(ph(a))+Math.cos(ph(b))+Math.cos(ph(c)))>0?1:0; }
+  function effectiveC(){ // AND pins C=0, OR pins C=1
+    if(mode==='and') return 0; if(mode==='or') return 1; return C;
+  }
+  function out(){ return majority(A,B,effectiveC()); }
+  const COL={A:'#22d3ee',B:'#8b6cff',C:'#ff4d9d',out:'#3df0b0'};
+  function draw(){
+    const W=cv.width,H=cv.height;
+    g.clearRect(0,0,W,H);
+    // grid
+    g.strokeStyle='rgba(40,70,100,.18)'; g.lineWidth=1;
+    for(let x=0;x<W;x+=40){g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke();}
+    const lanes=[{nm:'A',v:A,y:50,col:COL.A},{nm:'B',v:B,y:110,col:COL.B},{nm:'C',v:effectiveC(),y:170,col:COL.C}];
+    const k=0.045, w=0.09, amp=18, x0=120, xj=560; // junction x
+    // input waveguides + waves
+    lanes.forEach(L=>{
+      g.strokeStyle='rgba(60,100,140,.35)'; g.lineWidth=14; g.lineCap='round';
+      g.beginPath(); g.moveTo(x0,L.y); g.lineTo(xj,L.y); g.stroke();
+      // wave
+      g.strokeStyle=L.col; g.lineWidth=2; g.beginPath();
+      for(let x=x0;x<=xj;x+=2){ const y=L.y - amp*Math.cos(k*(x-x0) - w*t + ph(L.v)); if(x===x0)g.moveTo(x,y); else g.lineTo(x,y); }
+      g.stroke();
+      g.fillStyle=L.col; g.font='13px ui-monospace,monospace'; g.textAlign='right';
+      g.fillText(L.nm+' = '+L.v, x0-12, L.y+4);
+      // launch antenna
+      g.strokeStyle=L.col; g.lineWidth=2; g.beginPath(); g.arc(x0, L.y, 7, 0, 7); g.stroke();
+    });
+    // junction / combiner node
+    const yj=110;
+    g.fillStyle='rgba(34,211,238,.10)'; g.strokeStyle='#22d3ee'; g.lineWidth=1.5;
+    g.beginPath(); g.arc(xj,yj,26,0,7); g.fill(); g.stroke();
+    g.fillStyle='#9bf3ff'; g.font='10px ui-monospace,monospace'; g.textAlign='center'; g.fillText('Σ',xj,yj-32); g.fillText('combine',xj,yj+40);
+    lanes.forEach(L=>{ g.strokeStyle='rgba(120,160,200,.3)'; g.lineWidth=2; g.beginPath(); g.moveTo(xj,L.y); g.lineTo(xj,yj); g.stroke(); });
+    // output waveguide + resultant wave (sum of three)
+    const xo=cv.width-60;
+    g.strokeStyle='rgba(61,240,176,.4)'; g.lineWidth=14; g.beginPath(); g.moveTo(xj+26,yj); g.lineTo(xo,yj); g.stroke();
+    g.strokeStyle=COL.out; g.lineWidth=2.4; g.beginPath();
+    let maxAbs=0;
+    for(let x=xj+26;x<=xo;x+=2){
+      let s=0; lanes.forEach(L=> s+=Math.cos(k*(x-x0)-w*t+ph(L.v)) );
+      const y=yj - (amp*0.62)*s;
+      maxAbs=Math.max(maxAbs,Math.abs(s));
+      if(x===xj+26)g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    g.stroke();
+    // MTJ readout head
+    g.fillStyle='rgba(61,240,176,.12)'; g.strokeStyle=COL.out; g.lineWidth=1.5;
+    g.fillRect(xo-14,yj-22,22,44); g.strokeRect(xo-14,yj-22,22,44);
+    g.fillStyle='#3df0b0'; g.font='10px ui-monospace,monospace'; g.fillText('MTJ',xo-3,yj+38);
+    // amplitude DC (sum of phases) for readout
+    const dc=Math.cos(ph(A))+Math.cos(ph(B))+Math.cos(ph(effectiveC()));
+    $('amp').textContent=(dc>0?'+':'')+dc.toFixed(0)+' (of ±3)';
+    const o=out();
+    const bit=$('bit'); bit.textContent=o; bit.className='bit '+(o?'one':'zero');
+  }
+  function loop(){ if(!paused){ t+=1; draw(); } requestAnimationFrame(loop); }
+  function syncBtns(){
+    $('iA').textContent='A · '+A; $('iA').classList.toggle('hi',!!A);
+    $('iB').textContent='B · '+B; $('iB').classList.toggle('hi',!!B);
+    $('iC').textContent='C · '+C; $('iC').classList.toggle('hi',!!C);
+    $('iC').style.opacity = mode==='maj'?'1':'.35';
+    document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===mode));
+    $('gexpr').textContent = mode==='maj'?'MAJ(A,B,C)':(mode==='and'?'A · B  (C pinned 0)':'A + B  (C pinned 1)');
+    drawTT();
+  }
+  function drawTT(){
+    let rows;
+    if(mode==='maj'){
+      let h='<tr><th>A</th><th>B</th><th>C</th><th>MAJ</th></tr>';
+      [[0,0,0],[0,0,1],[0,1,0],[0,1,1],[1,0,0],[1,0,1],[1,1,0],[1,1,1]].forEach(([a,b,c])=>{
+        const o=majority(a,b,c), cur=a===A&&b===B&&c===C;
+        h+='<tr><td'+(cur?' class="lit"':'')+'>'+a+'</td><td'+(cur?' class="lit"':'')+'>'+b+'</td><td'+(cur?' class="lit"':'')+'>'+c+'</td><td class="'+(o?'one':'zero')+(cur?' lit':'')+'">'+o+'</td></tr>';
+      });
+      $('tt').innerHTML=h;
+    } else {
+      const pin=mode==='and'?0:1, label=mode==='and'?'A·B':'A+B';
+      let h='<tr><th>A</th><th>B</th><th>'+label+'</th></tr>';
+      [[0,0],[0,1],[1,0],[1,1]].forEach(([a,b])=>{ const o=majority(a,b,pin), cur=a===A&&b===B;
+        h+='<tr><td'+(cur?' class="lit"':'')+'>'+a+'</td><td'+(cur?' class="lit"':'')+'>'+b+'</td><td class="'+(o?'one':'zero')+(cur?' lit':'')+'">'+o+'</td></tr>'; });
+      $('tt').innerHTML=h;
+    }
+  }
+  $('iA').onclick=()=>{A^=1;syncBtns();}; $('iB').onclick=()=>{B^=1;syncBtns();}; $('iC').onclick=()=>{C^=1;syncBtns();};
+  document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;syncBtns();});
+  $('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'play ▶':'pause ⏸';};
+  syncBtns(); loop();
+})();
+
+// ============ blueprint FIG.1 — layer-stack cross-section ============
+(function(){
+  const el=document.getElementById('bpStack'); if(!el)return;
+  const layers=[
+    {y:36,h:30,fill:'#0e2230',stroke:'#22d3ee',label:'microstrip antenna (launch coil)',tag:'Cu'},
+    {y:72,h:46,fill:'#161033',stroke:'#8b6cff',label:'YIG magnonic waveguide (spin-wave bus)',tag:'YIG'},
+    {y:124,h:30,fill:'#0e2230',stroke:'#3df0b0',label:'MTJ sense layer (read head array)',tag:'MTJ'},
+    {y:160,h:34,fill:'#1a0e1e',stroke:'#ff4d9d',label:'soft-magnetic yoke (flux return)',tag:'NiFe'},
+    {y:200,h:28,fill:'#0a1018',stroke:'#5a86a0',label:'substrate (GGG / Si)',tag:'sub'}
+  ];
+  let s='<rect x="0" y="0" width="960" height="280" fill="#040a10"/>';
+  const x=70,w=620;
+  layers.forEach(L=>{
+    s+='<rect x="'+x+'" y="'+L.y+'" width="'+w+'" height="'+L.h+'" fill="'+L.fill+'" stroke="'+L.stroke+'" stroke-width="1.5" rx="3"/>';
+    s+='<text x="'+(x+10)+'" y="'+(L.y+L.h/2+4)+'" font-family="monospace" font-size="12" fill="'+L.stroke+'">'+L.tag+'</text>';
+    s+='<line x1="'+(x+w)+'" y1="'+(L.y+L.h/2)+'" x2="'+(x+w+30)+'" y2="'+(L.y+L.h/2)+'" stroke="'+L.stroke+'" stroke-width="1" stroke-dasharray="2 2"/>';
+    s+='<text x="'+(x+w+36)+'" y="'+(L.y+L.h/2+4)+'" font-family="monospace" font-size="11.5" fill="#86b6d6">'+L.label+'</text>';
+  });
+  // spin-wave glyph riding the YIG layer
+  s+='<path d="';
+  for(let px=x+20;px<x+w-20;px+=4){ const py=95 - 9*Math.cos((px-x)*0.12); s+=(px===x+20?'M':'L')+px+' '+py.toFixed(1)+' '; }
+  s+='" fill="none" stroke="#9bf3ff" stroke-width="1.6"/>';
+  // launch + read arrows
+  s+='<text x="'+(x+10)+'" y="24" font-family="monospace" font-size="11" fill="#22d3ee">▼ RF pulse in (writes phase)</text>';
+  s+='<text x="'+(x+w-150)+'" y="118" font-family="monospace" font-size="11" fill="#3df0b0">▲ bit out (MTJ)</text>';
+  s+='<text x="'+x+'" y="252" font-family="monospace" font-size="11" fill="#5a86a0">cross-section · not to scale · concept targets</text>';
+  el.innerHTML=s;
+})();
+
+// ============ blueprint FIG.2 — datapath block diagram ============
+(function(){
+  const el=document.getElementById('bpBlock'); if(!el)return;
+  function box(x,y,w,h,t1,t2,col){ return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="7" fill="rgba(14,26,38,.85)" stroke="'+col+'" stroke-width="1.5"/>'+
+    '<text x="'+(x+w/2)+'" y="'+(y+h/2-3)+'" text-anchor="middle" font-family="monospace" font-size="12.5" fill="'+col+'">'+t1+'</text>'+
+    (t2?'<text x="'+(x+w/2)+'" y="'+(y+h/2+14)+'" text-anchor="middle" font-family="monospace" font-size="10" fill="#86b6d6">'+t2+'</text>':''); }
+  function arrow(x1,y1,x2,y2){ return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#3a5a78" stroke-width="1.6" marker-end="url(#ah)"/>'; }
+  let s='<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#3a5a78"/></marker></defs>';
+  s+='<rect x="0" y="0" width="960" height="300" fill="#040a10"/>';
+  const ym=130;
+  s+=box(30,ym-30,140,60,'128 input','transducers (RF)','#22d3ee');
+  s+=arrow(170,ym,210,ym);
+  s+=box(210,ym-30,150,60,'spin-wave bus','YIG waveguides','#8b6cff');
+  s+=arrow(360,ym,400,ym);
+  s+=box(400,ym-46,180,92,'majority-gate ALU','carry-save fabric','#9bf3ff');
+  s+=arrow(580,ym,620,ym);
+  s+=box(620,ym-30,140,60,'MTJ sense','array (read)','#3df0b0');
+  s+=arrow(760,ym,800,ym);
+  s+=box(800,ym-30,130,60,'128-bit','register (NV)','#ff4d9d');
+  // clock + feedback
+  s+=box(400,250,180,36,'RF bias-field clock','GHz → THz','#ffb454');
+  s+='<line x1="490" y1="250" x2="490" y2="'+(ym+46)+'" stroke="#ffb454" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ah)"/>';
+  s+='<path d="M865 '+(ym-30)+' Q 865 40 490 40 L 300 40" fill="none" stroke="#3a5a78" stroke-width="1.4" stroke-dasharray="3 3" marker-end="url(#ah)"/>';
+  s+='<text x="600" y="34" font-family="monospace" font-size="10.5" fill="#5a86a0">writeback / accumulate</text>';
+  s+='<text x="30" y="288" font-family="monospace" font-size="11" fill="#5a86a0">datapath · majority-gate fabric is functionally complete (AND/OR/NOT all derive from MAJ + inversion)</text>';
+  el.innerHTML=s;
+})();
+</script>
+</body>
+</html>
