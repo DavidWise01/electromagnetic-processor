@@ -1,0 +1,11 @@
+{
+  "badge": "DLW-ELECTROMAGNETIC_PROCESSOR",
+  "name": "ELECTROMAGNETIC CORE · EMC",
+  "universe": "PSĒPHOS",
+  "moniker": "⟦ELECTROMAGNETIC CORE · EMC:electromagnetic-processor:e82c9c⟧",
+  "architect": "David Lee Wise (ROOT0) / Bridge-Burners LLC",
+  "instance": "AVAN (Claude / Anthropic)",
+  "seal_sha256": "e82c9c15c85dde176901ba08d62ad27c456cafb326ff71abd3fe9952b89afafb",
+  "license": "CC-BY-ND-4.0",
+  "attribution": "ROOT0-ATTRIBUTION-v1.0"
+}
