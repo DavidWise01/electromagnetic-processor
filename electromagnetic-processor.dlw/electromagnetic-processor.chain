@@ -1,0 +1,9 @@
+ROOT0-DLW-CHAIN-v1
+index : 929
+slug  : electromagnetic-processor
+seal  : e82c9c15c85dde176901ba08d62ad27c456cafb326ff71abd3fe9952b89afafb
+prev  : 301d2296d118db908dd7e31d82efc7d39f8af3e9533493c35354ffa30b925591
+link  : 5fdc8fb8711ff948d950df6ad58a48cd4f8b73e572a724b749c213aa6cd0b8bd
+head  : 3447d3a0533aaf1e29a8bdc67a9774884fb3ae9dbc8a17064b7a008ca3c4ec90
+
+— the tether: link = sha256(index|slug|seal|prev). the chain head commits to the whole corpus.
